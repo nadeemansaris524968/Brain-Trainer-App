@@ -8,17 +8,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     Boolean isPlaying;
     Button controllerBTN;
+    Button option1;
+    Button option2;
+    Button option3;
+    Button option4;
     CountDownTimer countDownTimer;
     TextView timer;
+    Map<String, Integer> questionAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        questionAnswers = new HashMap<>();
+        questionAnswers.put("13+19?",32);
+        questionAnswers.put("2*45?",90);
+        questionAnswers.put("3+2?",5);
+
+        option1 = (Button) findViewById(R.id.option1);
+        option2 = (Button) findViewById(R.id.option2);
+        option3 = (Button) findViewById(R.id.option3);
+        option4 = (Button) findViewById(R.id.option4);
+
         isPlaying = false;
         controllerBTN = (Button) findViewById(R.id.controllerBTN);
         timer = (TextView) findViewById(R.id.timer);
@@ -59,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
             timer.setText("0:00");
             countDownTimer.cancel();
         }
+    }
+
+    public void generateQuestionAnswers(){
+        
     }
 }
