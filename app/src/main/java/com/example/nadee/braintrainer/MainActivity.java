@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView questionsTV;
     Map<String, Integer> questionAnswers;
     String currentQuesKey;
+    int answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         questionAnswers.put("3+2?",5);
 
         currentQuesKey = "";
+        answer = 0;
 
         option1 = (Button) findViewById(R.id.option1);
         option2 = (Button) findViewById(R.id.option2);
@@ -54,15 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 Log.i("CountDown Timer", "time passed"+millisUntilFinished);
-                String toDisplay = "0:00";
-                int time = (int)(millisUntilFinished / 1000);
-                if (time <= 9){
-                    toDisplay = "0:0"+Integer.toString(time);
-                }
-                else {
-                    toDisplay = "0:"+Integer.toString(time);
-                }
-                timerTV.setText(toDisplay);
+                workTimer(millisUntilFinished);
             }
 
             @Override
@@ -77,15 +71,16 @@ public class MainActivity extends AppCompatActivity {
         if (isPlaying){
             isPlaying = false;
             Log.i("Game State", "is playing: "+isPlaying.toString());
-            controllerBTN.setText("Stop");
-            countDownTimer.start();
+            controllerBTN.setText("Play");
+            timerTV.setText("0:00");
+            countDownTimer.cancel();
         }
         else {
             isPlaying = true;
             Log.i("Game State", "is playing: "+isPlaying.toString());
-            controllerBTN.setText("Play");
-            timerTV.setText("0:00");
-            countDownTimer.cancel();
+            controllerBTN.setText("Stop");
+            beginAskingQuestions();
+            countDownTimer.start();
         }
     }
 
@@ -100,5 +95,17 @@ public class MainActivity extends AppCompatActivity {
         if (isPlaying){
 
         }
+    }
+
+    public void workTimer(long millisUntilFinished){
+        String toDisplay = "0:00";
+        int time = (int)(millisUntilFinished / 1000);
+        if (time <= 9){
+            toDisplay = "0:0"+Integer.toString(time);
+        }
+        else {
+            toDisplay = "0:"+Integer.toString(time);
+        }
+        timerTV.setText(toDisplay);
     }
 }
