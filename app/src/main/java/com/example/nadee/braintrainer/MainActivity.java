@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     Button option3;
     Button option4;
     CountDownTimer countDownTimer;
-    TextView timer;
+    TextView timerTV;
+    TextView questionsTV;
     Map<String, Integer> questionAnswers;
     String currentQuesKey;
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        questionsTV = (TextView) findViewById(R.id.question);
 
         questionAnswers = new HashMap<>();
         questionAnswers.put("13+19?",32);
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         isPlaying = false;
         controllerBTN = (Button) findViewById(R.id.controllerBTN);
-        timer = (TextView) findViewById(R.id.timer);
+        timerTV = (TextView) findViewById(R.id.timer);
 
         countDownTimer = new CountDownTimer(30100, 1000) {
             @Override
@@ -60,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     toDisplay = "0:"+Integer.toString(time);
                 }
-                timer.setText(toDisplay);
+                timerTV.setText(toDisplay);
             }
 
             @Override
             public void onFinish() {
                 Log.i("CountDown Timer", "Finished!");
-                timer.setText("0:00");
+                timerTV.setText("0:00");
             }
         };
     }
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             isPlaying = true;
             Log.i("Game State", "is playing: "+isPlaying.toString());
             controllerBTN.setText("Play");
-            timer.setText("0:00");
+            timerTV.setText("0:00");
             countDownTimer.cancel();
         }
     }
@@ -92,5 +94,11 @@ public class MainActivity extends AppCompatActivity {
         option1.setText(Integer.toString(random.nextInt(10)));
         option2.setText(Integer.toString(random.nextInt(10)));
         option3.setText(Integer.toString(random.nextInt(10)));
+    }
+
+    public void beginAskingQuestions(){
+        if (isPlaying){
+
+        }
     }
 }
