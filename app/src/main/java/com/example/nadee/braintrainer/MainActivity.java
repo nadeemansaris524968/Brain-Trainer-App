@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     CountDownTimer countDownTimer;
     TextView timer;
     Map<String, Integer> questionAnswers;
+    String currentQuesKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,19 @@ public class MainActivity extends AppCompatActivity {
         questionAnswers.put("2*45?",90);
         questionAnswers.put("3+2?",5);
 
+        currentQuesKey = "";
+
         option1 = (Button) findViewById(R.id.option1);
         option2 = (Button) findViewById(R.id.option2);
         option3 = (Button) findViewById(R.id.option3);
         option4 = (Button) findViewById(R.id.option4);
 
+        displayNumbersOnButtons();
+
         isPlaying = false;
         controllerBTN = (Button) findViewById(R.id.controllerBTN);
         timer = (TextView) findViewById(R.id.timer);
+
         countDownTimer = new CountDownTimer(30100, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -80,7 +87,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void generateQuestionAnswers(){
-        
+    public void displayNumbersOnButtons(){
+        Random random = new Random();
+        option1.setText(Integer.toString(random.nextInt(10)));
+        option2.setText(Integer.toString(random.nextInt(10)));
+        option3.setText(Integer.toString(random.nextInt(10)));
     }
 }
