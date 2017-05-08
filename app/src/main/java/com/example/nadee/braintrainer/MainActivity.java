@@ -21,8 +21,12 @@ public class MainActivity extends AppCompatActivity {
     Button button2;
     Button button3;
     TextView sumTextView;
+    TextView scoreTextView;
+    TextView resultTextView;
+    int score = 0;
     ArrayList<Integer> answers = new ArrayList<>();
     int locationOfCorrectAnswer;
+    int numberOfQuestions = 0;
 
     public void start(View view){
         startBTN.setVisibility(View.INVISIBLE);
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        resultTextView = (TextView)findViewById(R.id.resultTextView);
+        scoreTextView = (TextView) findViewById(R.id.scoreTextView);
         startBTN = (Button) findViewById(R.id.startBTN);
 
         button0 = (Button) findViewById(R.id.button0);
@@ -41,6 +47,23 @@ public class MainActivity extends AppCompatActivity {
 
         sumTextView = (TextView)findViewById(R.id.sumTextView);
 
+        generateQuestion();
+    }
+
+    public void chooseAnswer(View view){
+        if (view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))){
+            score++;
+            resultTextView.setText("Correct!");
+        }
+        else {
+            resultTextView.setText("Wrong!");
+        }
+        numberOfQuestions++;
+        scoreTextView.setText(Integer.toString(score)+"/"+Integer.toString(numberOfQuestions));
+        generateQuestion();
+    }
+
+    public void generateQuestion(){
         Random random = new Random();
         int a = random.nextInt(21);
         int b = random.nextInt(21);
@@ -48,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         sumTextView.setText(a+" + "+b);
 
         locationOfCorrectAnswer = random.nextInt(4);
+        answers.clear();
         int incorrectAnswer;
 
         for (int i=0;i<4;i++){
@@ -67,10 +91,5 @@ public class MainActivity extends AppCompatActivity {
         button1.setText(Integer.toString(answers.get(1)));
         button2.setText(Integer.toString(answers.get(2)));
         button3.setText(Integer.toString(answers.get(3)));
-
-    }
-
-    public void chooseAnswer(View view){
-        
     }
 }
