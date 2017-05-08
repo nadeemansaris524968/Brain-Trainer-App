@@ -32,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void start(View view){
         startBTN.setVisibility(View.INVISIBLE);
+        sumTextView.setVisibility(View.VISIBLE);
+        resultTextView.setVisibility(View.VISIBLE);
+        scoreTextView.setVisibility(View.VISIBLE);
+        timerTextView.setVisibility(View.VISIBLE);
+        button0.setVisibility(View.VISIBLE);
+        button1.setVisibility(View.VISIBLE);
+        button2.setVisibility(View.VISIBLE);
+        button3.setVisibility(View.VISIBLE);
+        playAgain(findViewById(R.id.playAgainBTN));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         button3 = (Button) findViewById(R.id.button3);
 
         sumTextView = (TextView)findViewById(R.id.sumTextView);
-        playAgain(findViewById(R.id.playAgainBTN));
 
         sumTextView.setVisibility(View.INVISIBLE);
         resultTextView.setVisibility(View.INVISIBLE);
