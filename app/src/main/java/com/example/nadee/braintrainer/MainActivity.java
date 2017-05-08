@@ -20,9 +20,11 @@ public class MainActivity extends AppCompatActivity {
     Button button1;
     Button button2;
     Button button3;
+    Button playAgainBTN;
     TextView sumTextView;
     TextView scoreTextView;
     TextView resultTextView;
+    TextView timerTextView;
     int score = 0;
     ArrayList<Integer> answers = new ArrayList<>();
     int locationOfCorrectAnswer;
@@ -37,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         resultTextView = (TextView)findViewById(R.id.resultTextView);
+
         scoreTextView = (TextView) findViewById(R.id.scoreTextView);
+
         startBTN = (Button) findViewById(R.id.startBTN);
+        startBTN.setVisibility(View.VISIBLE);
+        timerTextView = (TextView)findViewById(R.id.timerTextView);
+
+        playAgainBTN = (Button)findViewById(R.id.playAgainBTN);
 
         button0 = (Button) findViewById(R.id.button0);
         button1 = (Button) findViewById(R.id.button1);
@@ -46,8 +54,17 @@ public class MainActivity extends AppCompatActivity {
         button3 = (Button) findViewById(R.id.button3);
 
         sumTextView = (TextView)findViewById(R.id.sumTextView);
+        playAgain(findViewById(R.id.playAgainBTN));
 
-        generateQuestion();
+        sumTextView.setVisibility(View.INVISIBLE);
+        resultTextView.setVisibility(View.INVISIBLE);
+        scoreTextView.setVisibility(View.INVISIBLE);
+        timerTextView.setVisibility(View.INVISIBLE);
+        playAgainBTN.setVisibility(View.INVISIBLE);
+        button0.setVisibility(View.INVISIBLE);
+        button1.setVisibility(View.INVISIBLE);
+        button2.setVisibility(View.INVISIBLE);
+        button3.setVisibility(View.INVISIBLE);
     }
 
     public void chooseAnswer(View view){
@@ -61,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         numberOfQuestions++;
         scoreTextView.setText(Integer.toString(score)+"/"+Integer.toString(numberOfQuestions));
         generateQuestion();
+
     }
 
     public void generateQuestion(){
@@ -91,5 +109,30 @@ public class MainActivity extends AppCompatActivity {
         button1.setText(Integer.toString(answers.get(1)));
         button2.setText(Integer.toString(answers.get(2)));
         button3.setText(Integer.toString(answers.get(3)));
+    }
+
+    public void playAgain(View view){
+        score = 0;
+        numberOfQuestions = 0;
+        timerTextView.setText("30s");
+        scoreTextView.setText("0/0");
+        resultTextView.setText("");
+        playAgainBTN.setVisibility(View.INVISIBLE);
+        generateQuestion();
+
+        new CountDownTimer(30100, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerTextView.setText(String.valueOf(millisUntilFinished / 1000) + "s");
+            }
+
+            @Override
+            public void onFinish() {
+                playAgainBTN.setVisibility(View.VISIBLE);
+                timerTextView.setText("0s");
+                resultTextView.setText("Your score: "+Integer.toString(score)+"/"+Integer.toString(numberOfQuestions));
+            }
+        }.start();
     }
 }
